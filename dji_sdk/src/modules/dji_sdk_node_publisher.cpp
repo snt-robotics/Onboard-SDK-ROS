@@ -467,18 +467,18 @@ DJISDKNode::publish50HzData(Vehicle* vehicle, RecvContainer recvFrame,
   {
     int16_t mode = vehicle->broadcast->getRC().mode;
 
-    /* If mode is in P (10000) than can control the UAV*/
-    if (p->can_control == false && mode == 10000)
+    /* If mode is in F == -10000 than SDK can control the UAV */
+    if (p->can_control == false && mode == -10000)
     {
-      ROS_WARN_STREAM("can_control was False, but mode is now P(10000) " <<
+      ROS_WARN_STREAM("can_control was False, but mode is now F = -10000 " <<
                       "so activiating control, can_control = true, " <<
                       "you still need to manual request control authority!");
       p->can_control = true;
     }
-    /* If mode is in F (-10000) than cannot control the UAV*/
-    else if (p->can_control == true && mode == -10000)
+    /* If mode is NOT in F != -10000 than SDK CANNOT control the UAV */
+    else if (p->can_control == true && mode != -10000)
     {
-      ROS_WARN_STREAM("can_control was True, but mode is now F(-10000) so " <<
+      ROS_WARN_STREAM("can_control was True, but mode is now P = 10000 so " <<
                "DEACTIVATING control, can_control = false");
       p->can_control = false;
     }
