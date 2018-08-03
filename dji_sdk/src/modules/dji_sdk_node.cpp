@@ -183,7 +183,7 @@ bool
 DJISDKNode::initFlightControl(ros::NodeHandle& nh)
 {
   flight_control_sub = nh.subscribe<sensor_msgs::Joy>(
-    "dji_sdk/flight_control_setpoint_generic", 10,
+    "dji_sdk/flight_control_setpoint_generic", 1,
     &DJISDKNode::flightControlSetpointCallback,   this);
 
   flight_control_position_yaw_sub =

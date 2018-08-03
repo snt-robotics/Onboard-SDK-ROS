@@ -12,7 +12,7 @@
 #ifndef DJI_SDK_NODE_MAIN_H
 #define DJI_SDK_NODE_MAIN_H
 
-#include <atomic>
+#include <mutex>
 
 //! ROS
 #include <ros/ros.h>
@@ -266,7 +266,8 @@ private:
 
 private:
   //! If set to false, any Joy control message will be discarded
-  std::atomic<bool> can_control;
+  bool can_control;
+  std::mutex can_control_mutex;
 
   //! OSDK core
   Vehicle* vehicle;
