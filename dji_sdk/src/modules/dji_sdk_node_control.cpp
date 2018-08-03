@@ -29,10 +29,17 @@
  */
 void DJISDKNode::flightControl(uint8_t flag, float xSP, float ySP, float zSP, float yawSP)
 {
+
+  std::lock_guard<std::mutex> lock(can_control_mutex);
+
   if(can_control == false)
   {
-    ROS_WARN_THROTTLE(1, "Received Joy ctrl msg but can_control is set to False! Discarding...");
+    ROS_WARN("Received Joy ctrl msg but can_control is set to False! Discarding...");
     return;
+  }
+  else
+  {
+    ROS_INFO("sending cmd");
   }
 
   uint8_t HORI  = (flag & 0xC0);
