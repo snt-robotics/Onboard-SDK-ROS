@@ -34,12 +34,12 @@ void DJISDKNode::flightControl(uint8_t flag, float xSP, float ySP, float zSP, fl
 
   if(can_control == false)
   {
-    ROS_WARN("Received Joy ctrl msg but can_control is set to False! Discarding...");
-    return;
+    //ROS_WARN_THROTTLE(5, "Received Joy ctrl msg but can_control is set to False! Discarding...");
+    //return;
   }
   else
   {
-    ROS_INFO("sending cmd");
+    //ROS_INFO_THROTTLE(5, "sending cmd");
   }
 
   uint8_t HORI  = (flag & 0xC0);
